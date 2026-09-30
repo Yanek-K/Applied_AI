@@ -47,18 +47,19 @@ public class environment_sim {
       boolean B_status = Boolean.parseBoolean(args[2]);
       boolean C_status = Boolean.parseBoolean(args[3]);
       boolean D_status = Boolean.parseBoolean(args[4]);
+
       System.out.println("Current Location = " + current_location + "\n" +
             "Square A_status = " + A_status + "\n" +
             "Square B_status = " + B_status + "\n" +
             "Square C_status = " + C_status + "\n" +
             "Square D_status = " + D_status + "\n");
 
-      Map<Character, Boolean> clean = new HashMap<>();
+      Map<Character, Boolean> current_status = new HashMap<>();
 
-      clean.put('A', A_status);
-      clean.put('B', B_status);
-      clean.put('C', C_status);
-      clean.put('D', D_status);
+      current_status.put('A', A_status);
+      current_status.put('B', B_status);
+      current_status.put('C', C_status);
+      current_status.put('D', D_status);
 
       Map<Character, Character> horizontal = new HashMap<>();
       horizontal.put('A', 'B');
@@ -78,27 +79,34 @@ public class environment_sim {
       diagonal.put('C', 'B');
       diagonal.put('D', 'A');
 
+      // Figure out the horizontal, vertical and diagonal squares for the starting
+      // square.
       char h = horizontal.get(current_location);
       char v = vertical.get(current_location);
       char d = diagonal.get(current_location);
 
       // Simple Reflex Agent: if the current square is dirty, stay and clean it.
       // Otherwise check neighbours in priority order, and clean the first dirty
-      // one found. If all are clean, don't do anything.
-      if (isClean(current_location, clean)) {
+      // one found. If all squares are clean, don't do anything.
 
-         if (!isClean(h, clean)) {
+      if (isClean(current_location, current_status)) {
+
+         if (!isClean(h, current_status)) {
             current_location = h;
-         } else if (!isClean(v, clean)) {
+         } else if (!isClean(v, current_status)) {
             current_location = v;
-         } else if (!isClean(d, clean)) {
+         } else if (!isClean(d, current_status)) {
             current_location = v;
          }
       }
       System.out.println("\nAction - Next Location =" + current_location);
    }
 
-   static boolean isClean(char square, Map<Character, Boolean> clean) {
-      return clean.get(square);
+   // Helper method
+   // Takes the current location and checks if that square is clean based
+   // on the current_status of all the squares.
+   // Returns true if the current location is clean.
+   static boolean isClean(char current_location, Map<Character, Boolean> current_status) {
+      return current_status.get(current_location);
    }
 }

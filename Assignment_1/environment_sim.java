@@ -56,8 +56,7 @@ public class environment_sim {
       diagonal.put('C', 'B');
       diagonal.put('D', 'A');
 
-      // Figure out the horizontal, vertical and diagonal squares for the starting
-      // square.
+      // Figure out the horizontal, vertical and diagonal squares for the starting square.
       char h = horizontal.get(current_location);
       char v = vertical.get(current_location);
       char d = diagonal.get(current_location);
@@ -65,7 +64,6 @@ public class environment_sim {
       // Simple Reflex Agent: if the current square is dirty, stay and clean it.
       // Otherwise check neighbours in priority order, and clean the first dirty
       // one found. If all squares are clean, don't do anything.
-
       if (isClean(current_location, current_status)) {
          if (!isClean(h, current_status)) {
             current_location = h;
@@ -78,9 +76,9 @@ public class environment_sim {
       System.out.println("Action - Next Location = " + current_location);
    }
 
-   // Helper method
-   // Takes the current location and checks if that square is clean based
-   // on the current_status of all the squares.
+   // A Helper method that takes the current location and checks if that square 
+   // is clean based on the current_status of all the squares.
+   // 
    // Returns true if the current location is clean.
    static boolean isClean(char current_location, Map<Character, Boolean> current_status) {
       return current_status.get(current_location);
